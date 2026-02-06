@@ -1,115 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Netflix-Inspired Design System */
+:root {
+  /* Netflix Core Colors */
+  --netflix-red: 0 84% 45%;
+  --netflix-red-hover: 0 84% 40%;
+  --netflix-black: 0 0% 0%;
+  --netflix-dark: 0 0% 8%;
+  --netflix-darker: 0 0% 5%;
+  --netflix-gray: 0 0% 18%;
+  --netflix-light-gray: 0 0% 55%;
+  
+  /* Text Colors */
+  --text-primary: 0 0% 100%;
+  --text-secondary: 0 0% 90%;
+  --text-muted: 0 0% 55%;
+  --text-dimmed: 0 0% 40%;
+  
+  /* Accent Colors */
+  --accent-blue: 199 89% 48%;
+  --accent-cyan: 180 100% 50%;
+  --accent-green: 142 71% 45%;
+  --accent-purple: 280 84% 60%;
+  --accent-orange: 36 100% 50%;
+  --accent-gold: 45 93% 47%;
+  
+  /* Background & Foreground - Semantic */
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 0 84% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 14%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 0 0% 18%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 18%;
+  --input: 0 0% 14%;
+  --ring: 0 84% 45%;
+  
+  /* Shadows & Effects */
+  --shadow-card: 0 4px 16px hsla(0, 0%, 0%, 0.5);
+  --shadow-card-hover: 0 8px 32px hsla(0, 0%, 0%, 0.7);
+  --shadow-glow-red: 0 0 30px hsla(0, 84%, 45%, 0.4);
+  --shadow-glow-blue: 0 0 30px hsla(199, 89%, 48%, 0.4);
+  
+  /* Gradients */
+  --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(0 0% 0%) 100%);
+  --gradient-card: linear-gradient(180deg, transparent 0%, hsla(0, 0%, 0%, 0.9) 100%);
+  --gradient-nav: linear-gradient(180deg, hsl(0 0% 0%) 0%, transparent 100%);
+  --gradient-blue: linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(210 100% 40%) 100%);
+  --gradient-purple: linear-gradient(135deg, hsl(280 84% 60%) 0%, hsl(260 70% 50%) 100%);
+  --gradient-green: linear-gradient(135deg, hsl(142 71% 45%) 0%, hsl(160 70% 35%) 100%);
+  --gradient-orange: linear-gradient(135deg, hsl(36 100% 50%) 0%, hsl(25 95% 45%) 100%);
+  --gradient-gold: linear-gradient(135deg, hsl(45 93% 47%) 0%, hsl(35 90% 40%) 100%);
+  
+  /* Animations */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Spacing */
+  --row-gap: 3rem;
+  --card-gap: 0.5rem;
+  --section-padding: 4vw;
+  
+  /* Radius */
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+/* Typography */
+.font-display {
+  font-family: 'Bebas Neue', sans-serif;
 }
 
+/* Netflix-style scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--netflix-dark));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--netflix-gray));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--netflix-light-gray));
+}
+
+/* Hide scrollbar for horizontal scroll containers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Netflix Card Hover Effects */
+@keyframes cardExpand {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Utility Classes */
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp var(--transition-normal) ease forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown var(--transition-normal) ease forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--transition-normal) ease forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Netflix Text Shadow */
+.text-shadow-netflix {
+  text-shadow: 2px 2px 4px hsla(0, 0%, 0%, 0.8);
+}
+
+/* Gradient Text */
+.gradient-text-red {
+  background: linear-gradient(90deg, hsl(var(--netflix-red)) 0%, hsl(var(--accent-orange)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass Effect */
+.glass-effect {
+  background: hsla(0, 0%, 0%, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Netflix Buttons */
+.btn-netflix-primary {
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn-netflix-primary:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+.btn-netflix-secondary {
+  background-color: hsla(0, 0%, 50%, 0.5);
+  color: hsl(var(--foreground));
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn-netflix-secondary:hover {
+  background-color: hsla(0, 0%, 50%, 0.7);
+  transform: scale(1.02);
+}
+
+.btn-netflix-outline {
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  padding: 0.5rem 1rem;
+  border: 1px solid hsla(0, 0%, 100%, 0.5);
+  border-radius: var(--radius);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.btn-netflix-outline:hover {
+  border-color: hsl(var(--foreground));
+  background-color: hsla(0, 0%, 100%, 0.1);
+}
+
+/* Profile Card Styles */
+.profile-card {
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.profile-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 4px hsl(var(--foreground));
+}
+
+/* Content Row Styles */
+.content-row {
+  position: relative;
+}
+
+.content-row::before,
+.content-row::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.content-row::before {
+  left: 0;
+  background: linear-gradient(90deg, hsl(var(--background)) 0%, transparent 100%);
+}
+
+.content-row::after {
+  right: 0;
+  background: linear-gradient(270deg, hsl(var(--background)) 0%, transparent 100%);
+}
+
+/* Progress Bar Netflix Style */
+.progress-netflix {
+  height: 3px;
+  background: hsl(var(--netflix-gray));
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.progress-netflix-fill {
+  height: 100%;
+  background: hsl(var(--netflix-red));
+  transition: width var(--transition-normal);
+}
+
+/* Responsive Utilities */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 4%;
+    --row-gap: 2rem;
+  }
+}
+
+/* Selection styling */
+::selection {
+  background-color: hsl(var(--netflix-red));
+  color: hsl(var(--foreground));
+}
+
+/* Focus Styles */
+*:focus-visible {
+  outline: 2px solid hsl(var(--netflix-red));
+  outline-offset: 2px;
+}
+
+/* Layer Base */
 @layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
-    }
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
-}
-
-@layer base {
-    [data-debug-wrapper="true"] {
-        display: contents !important;
-    }
-
-    [data-debug-wrapper="true"] > * {
-        margin-left: inherit;
-        margin-right: inherit;
-        margin-top: inherit;
-        margin-bottom: inherit;
-        padding-left: inherit;
-        padding-right: inherit;
-        padding-top: inherit;
-        padding-bottom: inherit;
-        column-gap: inherit;
-        row-gap: inherit;
-        gap: inherit;
-        border-left-width: inherit;
-        border-right-width: inherit;
-        border-top-width: inherit;
-        border-bottom-width: inherit;
-        border-left-style: inherit;
-        border-right-style: inherit;
-        border-top-style: inherit;
-        border-bottom-style: inherit;
-        border-left-color: inherit;
-        border-right-color: inherit;
-        border-top-color: inherit;
-        border-bottom-color: inherit;
-    }
+/* Chart Colors */
+:root {
+  --chart-1: 0 84% 45%;
+  --chart-2: 199 89% 48%;
+  --chart-3: 142 71% 45%;
+  --chart-4: 280 84% 60%;
+  --chart-5: 36 100% 50%;
 }
