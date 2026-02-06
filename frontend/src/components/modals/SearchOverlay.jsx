@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, X, ArrowRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -9,17 +9,18 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const searchQuery = usePortfolioStore((state) => state.searchQuery);
   const setSearchQuery = usePortfolioStore((state) => state.setSearchQuery);
+  const inputRef = useRef(null);
 
+  // Focus the input when overlay opens
   useEffect(() => {
-    if (isOpen) {
-      setQuery(searchQuery);
-      // Focus the input when overlay opens
-      const input = document.getElementById('search-input');
-      if (input) {
-        setTimeout(() => input.focus(), 100);
-      }
+    if (isOpen && inputRef.current) {
+      const timer = setTimeout(() => inputRef.current?.focus(), 100);
+      return () => clearTimeout(timer);
     }
-  }, [isOpen, searchQuery]);
+  }, [isOpen]);
+
+  // Initialize query from store when overlay opens
+  const initializedQuery = isOpen ? searchQuery : '';
 
   // Search results
   const results = useMemo(() => {
@@ -105,7 +106,7 @@ export const SearchOverlay = ({ isOpen, onClose }) => {
                   animate={{ opacity: 1 }}
                   className="text-muted-foreground text-center py-8"
                 >
-                  No results found for "{query}"
+                  No results found for &quot;{query}&quot;
                 </motion.p>
               )}
 
