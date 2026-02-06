@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Info, Plus, FileText, Linkedin, Github } from 'lucide-react';
 import { personalInfo, heroStats, images } from '@/data/portfolioData';
 import { Button } from '@/components/ui/button';
 
+// Pre-generate particle positions for stable animation
+const generateParticlePositions = () => {
+  return Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    x: `${(i * 5) % 100}%`,
+    y: `${(i * 7 + 10) % 100}%`,
+    duration: 3 + (i % 4),
+    delay: (i % 3) * 0.5
+  }));
+};
+
+const PARTICLE_POSITIONS = generateParticlePositions();
+
 export const HeroBanner = () => {
+  const particles = useMemo(() => PARTICLE_POSITIONS, []);
+
   return (
     <section id="home" className="relative min-h-screen flex items-end pb-32 overflow-hidden">
       {/* Background Image with Overlay */}
@@ -22,13 +37,13 @@ export const HeroBanner = () => {
         
         {/* Animated particles effect */}
         <div className="absolute inset-0 opacity-30">
-          {[...Array(20)].map((_, i) => (
+          {particles.map((particle) => (
             <motion.div
-              key={i}
+              key={particle.id}
               className="absolute w-1 h-1 bg-accent-blue rounded-full"
               initial={{ 
-                x: Math.random() * 100 + '%', 
-                y: Math.random() * 100 + '%',
+                x: particle.x, 
+                y: particle.y,
                 opacity: 0.3 
               }}
               animate={{ 
@@ -36,9 +51,9 @@ export const HeroBanner = () => {
                 opacity: [0.3, 0.8, 0.3]
               }}
               transition={{ 
-                duration: 3 + Math.random() * 4,
+                duration: particle.duration,
                 repeat: Infinity,
-                delay: Math.random() * 2
+                delay: particle.delay
               }}
             />
           ))}

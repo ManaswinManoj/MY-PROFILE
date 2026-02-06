@@ -34,7 +34,7 @@ export const ProfileSelector = ({ onSelectProfile }) => {
         className="relative z-10 text-center mb-12"
       >
         <h1 className="text-4xl sm:text-5xl font-medium text-foreground tracking-wide">
-          Who's Watching?
+          Who&apos;s Watching?
         </h1>
       </motion.div>
 
