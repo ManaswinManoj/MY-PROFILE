@@ -7,7 +7,7 @@ export const personalInfo = {
   phone: "+91 8921198356",
   github: "https://github.com/ManaswinManoj",
   linkedin: "https://linkedin.com/in/manaswin-manoj",
-  resumeUrl: "https://customer-assets.emergentagent.com/job_codeflix-13/artifacts/h97gmwku_DOC-20250202-WA0102_",
+  resumeUrl: "https://drive.google.com/file/d/1KoWDrV1feR4oAG5UKwIJ5EsaZKk9cARE/view?usp=sharing",
   location: "Bangalore, India",
   summary: "Building intelligent systems that solve real-world problems. From architecting production-grade data pipelines at Ushur AI to developing defense-critical ship classification systems at DRDO. Specializing in Deep Learning, Generative AI, and Production-Scale ML Engineering."
 };

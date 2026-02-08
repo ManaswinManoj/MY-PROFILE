@@ -134,7 +134,7 @@ export const HeroBanner = () => {
             className="bg-foreground text-background hover:bg-foreground/90 font-semibold px-6 h-12 text-base"
             asChild
           >
-            <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer">
+            <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer" download>
               <Play className="w-5 h-5 mr-2 fill-current" />
               Download Resume
             </a>
@@ -175,7 +175,7 @@ export const HeroBanner = () => {
             className="border-foreground/40 text-foreground hover:bg-foreground/10 hover:border-foreground/60"
             asChild
           >
-            <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer">
+            <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer" download>
               <FileText className="w-4 h-4 mr-2" />
               Resume
             </a>
